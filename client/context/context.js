@@ -35,7 +35,7 @@ export const DiscordProvider = ({ children }) => {
             const data = {
                 userAddress: userAddress,
             };
- 
+
             try {
                 await fetch(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, {
                     method: "POST",
@@ -121,3 +121,5 @@ export const DiscordProvider = ({ children }) => {
         </DiscordContext.Provider>
     );
 };
+
+// 46:56
