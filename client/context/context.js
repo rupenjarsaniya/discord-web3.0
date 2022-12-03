@@ -7,6 +7,7 @@ import {
     createContext,
 } from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
+import gun from "gun";
 
 export const DiscordContext = createContext();
 
