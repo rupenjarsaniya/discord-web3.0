@@ -5,8 +5,22 @@ import smiley from "../assets/icons/smiley.svg";
 import gift from "../assets/icons/gift.svg";
 import gif from "../assets/icons/gif.svg";
 import Image from "next/image";
+import { useContext } from "react";
+import { DiscordContext } from "../context/context";
 
 const MessageForm = () => {
+    const {
+        currentAccount,
+        currentUser,
+        roomName,
+        placeholder,
+        messageText,
+        setRoomName,
+        setMessageText,
+    } = useContext(DiscordContext);
+
+
+    
     return (
         <form
             onSubmit={(event) => sendMessage(event)}

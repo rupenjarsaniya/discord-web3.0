@@ -19,7 +19,7 @@ export default {
             type: "image",
         },
         {
-            name: "isdm",
+            name: "isDm",
             title: "Is DM?",
             type: "boolean",
         },

@@ -1,18 +1,13 @@
 import { useRouter } from "next/router";
-import {
-    useContext,
-    useState,
-    useEffect,
-    useReducer,
-    createContext,
-} from "react";
+import { useState, useEffect, useReducer, createContext } from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
-import gun from "gun";
+// import Gun from "gun";
 
 export const DiscordContext = createContext();
 
+// const gun = Gun(["http://localhost:5000/"]);
+
 const initialState = { messages: [] };
-let provider;
 
 const reducer = (state, action) => {
     try {
@@ -40,10 +35,10 @@ export const DiscordProvider = ({ children }) => {
             const data = {
                 userAddress: userAddress,
             };
-
+ 
             try {
-                await fetch(`${process.env.NEXT_PUBLIC_URL}/createuser`, {
-                    method: " POST",
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, {
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -54,8 +49,8 @@ export const DiscordProvider = ({ children }) => {
             }
 
             try {
-                await fetch(`${process.env.NEXT_PUBLIC_URL}/createdm`, {
-                    method: " POST",
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/createdm`, {
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -72,10 +67,10 @@ export const DiscordProvider = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                provider = await getProviderObject();
+                const provider = await getProviderObject();
                 if (!provider) console.error("please install metamask!");
 
-                const accounts = provider.request({
+                const accounts = await provider.request({
                     method: "eth_accounts",
                 });
 
@@ -91,10 +86,10 @@ export const DiscordProvider = ({ children }) => {
 
     const connectWallet = async () => {
         try {
-            provider = await getProviderObject();
+            const provider = await getProviderObject();
             if (!provider) console.error("please install metamask!");
 
-            const accounts = provider.request({
+            const accounts = await provider.request({
                 method: "eth_requestAccounts",
             });
 
@@ -116,7 +111,7 @@ export const DiscordProvider = ({ children }) => {
                 placeholder,
                 messageText,
                 state,
-                gun,
+                // gun,
                 connectWallet,
                 setRoomName,
                 setMessageText,

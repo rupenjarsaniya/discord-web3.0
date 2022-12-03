@@ -10,7 +10,7 @@ export default async (req, res) => {
         roomId: userAddress,
         userReference: {
             _key: userAddress,
-            _ref: `${userAddress}-dm`,
+            _ref: `${userAddress}-user`,
             _type: "reference",
         },
     };

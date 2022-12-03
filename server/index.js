@@ -6,7 +6,7 @@ const app = express();
 const port = 5000;
 
 app.use(cors());
-// app.use(Gun.serve);
+app.use(Gun.serve);
 
 app.get("/", (_, res) => {
     res.status(200).send("> DEBUG: Discord Node is Live");
@@ -18,4 +18,4 @@ const server = app.listen(port, () => {
     );
 });
 
-// Gun({ web: server });
+Gun({ web: server });

@@ -5,36 +5,22 @@ import friends from "../assets/icons/friends.svg";
 import nitro from "../assets/icons/nitro.svg";
 import DmCard from "./DmCard";
 
-import avatar1 from "../assets/avatar-1.webp";
-import avatar2 from "../assets/avatar-2.png";
-import avatar3 from "../assets/avatar-3.webp";
-import avatar4 from "../assets/avatar-4.webp";
-
-const dummyChannels = [
-    {
-        id: 1,
-        name: "general",
-        avatar: avatar1,
-    },
-    {
-        id: 2,
-        name: "random",
-        avatar: avatar2,
-    },
-    {
-        id: 3,
-        name: "chill",
-        avatar: avatar3,
-    },
-    {
-        id: 4,
-        name: "buildspace",
-        avatar: avatar4,
-    },
-];
-
 const ConversationList = () => {
-    const [dms, setDms] = useState(dummyChannels);
+    const [dms, setDms] = useState([]);
+
+    useEffect(() => {
+        try {
+            (async () => {
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/getdms`
+                );
+                const responseJson = await response.json();
+                setDms(responseJson);
+            })();
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
 
     return (
         <div className={styles.conversations}>
@@ -75,10 +61,7 @@ const ConversationList = () => {
                         key={index}
                         name={dm.name}
                         id={dm.id}
-                        avatar={
-                            dm.avatar ||
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3OCSMFIW5fZ3vSN6yGpD-w-6SsL2_ZPA_sw&usqp=CAU"
-                        }
+                        avatar={dm.avatar}
                         status="online"
                     />
                 ))}

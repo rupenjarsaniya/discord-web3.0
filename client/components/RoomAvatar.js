@@ -18,7 +18,7 @@ const RoomAvatar = ({ id, avatar, name }) => {
                     className={styles.roomAvatarImage}
                     height={48}
                     width={48}
-                    alt="{name}"
+                    alt={name}
                 />
             </div>
         </div>
